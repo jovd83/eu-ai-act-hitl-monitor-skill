@@ -1,0 +1,90 @@
+{
+  "example_version": "2.1.0",
+  "handover_id": "handover-invalid-001",
+  "created_at": "2026-03-26T18:00:00Z",
+  "trace_id": "trace-invalid-001",
+  "run_id": "run-invalid-001",
+  "agent": {
+    "name": "test-agent",
+    "version": "1.0.0",
+    "policy_version": "2026-03-26"
+  },
+  "policy": {
+    "policy_id": "test-policy",
+    "policy_version": "2026-03-26",
+    "policy_reference": "policies/test-policy.json",
+    "review_required": true
+  },
+  "trigger": {
+    "type": "low_confidence",
+    "matched_rules": [
+      "bug-fix-below-confidence-threshold"
+    ],
+    "confidence": 0.6,
+    "risk_level": "high"
+  },
+  "pending_action": {
+    "summary": "Apply a production code patch",
+    "tool_name": "modify_application_code",
+    "tool_args_redacted": {
+      "target_file": "src/app/service.ts"
+    },
+    "side_effects": [
+      "changes production code"
+    ],
+    "affected_resources": [
+      "src/app/service.ts"
+    ]
+  },
+  "explanation": {
+    "goal": "Fix a production error path",
+    "why_now": "The bug is reproducible in staging",
+    "evidence_summary": [
+      "Error reproduced"
+    ],
+    "reasoning_summary": "A likely fix was identified but needs review.",
+    "uncertainty_summary": "The root cause is not yet fully isolated.",
+    "known_risks": [
+      "Patch may affect adjacent behavior"
+    ]
+  },
+  "review_guidance": {
+    "questions": [
+      "Is the patch scope acceptable?"
+    ],
+    "recommended_actions": [
+      "Approve if the patch is adequately scoped",
+      "Modify if narrower scope is required"
+    ]
+  },
+  "review_requirements": {
+    "required_reviewer_role": "engineering-approver",
+    "decision_deadline_at": "2026-03-26T19:00:00Z",
+    "fallback_on_timeout": "escalate",
+    "allow_reassignment": true
+  },
+  "human_options": [
+    "approve",
+    "modify",
+    "reject",
+    "kill",
+    "request_more_context"
+  ],
+  "audit": {
+    "review_payload_version": "2.1.0",
+    "redaction_notes": [
+      "No sensitive payloads included."
+    ],
+    "evidence_refs": [
+      "trace:trace-invalid-001"
+    ]
+  },
+  "review": {
+    "reviewer_id": null,
+    "review_started_at": null,
+    "review_submitted_at": null,
+    "review_duration_ms": null,
+    "decision_reason": null,
+    "modifications": null
+  }
+}

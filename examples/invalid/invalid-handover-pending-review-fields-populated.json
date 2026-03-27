@@ -1,0 +1,91 @@
+{
+  "example_version": "2.1.0",
+  "handover_id": "handover-invalid-005",
+  "created_at": "2026-03-26T18:10:00Z",
+  "trace_id": "trace-invalid-005",
+  "run_id": "run-invalid-005",
+  "agent": {
+    "name": "test-agent",
+    "version": "1.0.0",
+    "policy_version": "2026-03-26"
+  },
+  "policy": {
+    "policy_id": "test-policy",
+    "policy_version": "2026-03-26",
+    "policy_reference": "policies/test-policy.json",
+    "review_required": true
+  },
+  "trigger": {
+    "type": "low_confidence",
+    "matched_rules": [
+      "manual-test-rule"
+    ],
+    "confidence": 0.65,
+    "risk_level": "high"
+  },
+  "pending_action": {
+    "summary": "Run a sensitive code change",
+    "tool_name": "modify_application_code",
+    "tool_args_redacted": {
+      "target_file": "src/app/service.ts"
+    },
+    "side_effects": [
+      "changes production code"
+    ],
+    "affected_resources": [
+      "src/app/service.ts"
+    ]
+  },
+  "explanation": {
+    "goal": "Refactor a code path",
+    "why_now": "A maintenance task is in progress",
+    "evidence_summary": [
+      "Code duplication exists"
+    ],
+    "reasoning_summary": "The change is proposed for maintainability.",
+    "uncertainty_summary": "The refactor has not yet been validated against all call sites.",
+    "known_risks": [
+      "Refactor may introduce regressions"
+    ]
+  },
+  "review_guidance": {
+    "questions": [
+      "Should the change be paused?"
+    ],
+    "recommended_actions": [
+      "Approve only if the trigger is valid",
+      "Reject if the trigger data is malformed"
+    ]
+  },
+  "review_requirements": {
+    "required_reviewer_role": "engineering-approver",
+    "decision_deadline_at": "2026-03-26T19:10:00Z",
+    "fallback_on_timeout": "escalate",
+    "allow_reassignment": true
+  },
+  "human_options": [
+    "approve",
+    "modify",
+    "reject",
+    "kill",
+    "request_more_context"
+  ],
+  "audit": {
+    "review_payload_version": "2.1.0",
+    "redaction_notes": [
+      "No sensitive payloads included."
+    ],
+    "evidence_refs": [
+      "trace:trace-invalid-005"
+    ]
+  },
+  "review": {
+    "status": "pending",
+    "reviewer_id": "reviewer-2",
+    "review_started_at": null,
+    "review_submitted_at": null,
+    "review_duration_ms": null,
+    "decision_reason": null,
+    "modifications": null
+  }
+}

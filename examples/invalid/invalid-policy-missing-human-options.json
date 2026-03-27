@@ -1,0 +1,27 @@
+{
+  "example_version": "2.1.0",
+  "policy_id": "bad-policy",
+  "policy_version": "2026-03-27",
+  "description": "Invalid policy fixture missing human options on a pause-for-review rule.",
+  "default_action": "allow",
+  "review_defaults": {
+    "required_reviewer_role": "engineering-approver",
+    "max_review_wait_minutes": 60,
+    "fallback_on_timeout": "escalate"
+  },
+  "rules": [
+    {
+      "rule_id": "missing-options",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "new_feature"
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "This is intentionally invalid.",
+      "required_evidence": [
+        "feature summary"
+      ]
+    }
+  ]
+}

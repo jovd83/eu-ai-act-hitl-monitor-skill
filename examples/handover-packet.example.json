@@ -1,0 +1,104 @@
+{
+  "example_version": "2.1.0",
+  "handover_id": "handover-7d3a4f",
+  "created_at": "2026-03-25T19:00:00Z",
+  "trace_id": "trace-01hzmexample",
+  "run_id": "run-claims-442",
+  "agent": {
+    "name": "claims-orchestrator",
+    "version": "2.2.0",
+    "policy_version": "2026-03-25"
+  },
+  "policy": {
+    "policy_id": "claims-payout-review-policy-v2",
+    "policy_version": "2026-03-25",
+    "policy_reference": "policies/claims-payout-review-policy-v2.json",
+    "review_required": true
+  },
+  "trigger": {
+    "type": "low_confidence",
+    "matched_rules": [
+      "confidence_below_0_85",
+      "claims_payout_requires_review_over_1000"
+    ],
+    "confidence": 0.74,
+    "risk_level": "high"
+  },
+  "pending_action": {
+    "summary": "Approve a travel-delay reimbursement payout",
+    "tool_name": "update_claim_status",
+    "tool_args_redacted": {
+      "claim_id": "clm_442",
+      "new_status": "approved",
+      "payout_amount": 1240
+    },
+    "side_effects": [
+      "writes final claim status",
+      "unlocks payout processing"
+    ],
+    "affected_resources": [
+      "claims ledger",
+      "payout queue"
+    ]
+  },
+  "explanation": {
+    "goal": "Approve the customer's claim and release payment processing",
+    "why_now": "The policy rules appear satisfied but the flight delay evidence contains conflicting timestamps",
+    "evidence_summary": [
+      "Customer submitted boarding pass and airline delay notice",
+      "Flight API confirms delay event",
+      "Submitted timestamps differ by 42 minutes across sources"
+    ],
+    "reasoning_summary": "The agent selected approval because the policy threshold seems met, but confidence dropped due to inconsistent evidence timing.",
+    "uncertainty_summary": "The evidence supports a valid delay claim, but the mismatched timestamps create uncertainty about whether the payout should be released automatically.",
+    "known_risks": [
+      "Incorrect approval may create an improper payout",
+      "Conflicting timestamps may indicate a data quality issue"
+    ]
+  },
+  "review_guidance": {
+    "questions": [
+      "Do the conflicting timestamps materially undermine the claim decision?",
+      "Should payout be capped or converted to manual review until evidence is reconciled?"
+    ],
+    "recommended_actions": [
+      "Approve only if the airline evidence discrepancy is understood and acceptable",
+      "Modify if the claim should move to manual review or require a payout cap",
+      "Reject or kill if the current evidence is not sufficient for any automated payout action"
+    ]
+  },
+  "review_requirements": {
+    "required_reviewer_role": "claims-approver",
+    "decision_deadline_at": "2026-03-25T21:00:00Z",
+    "fallback_on_timeout": "escalate",
+    "escalation_contact": "claims-ops-lead@example.com",
+    "allow_reassignment": true
+  },
+  "human_options": [
+    "approve",
+    "modify",
+    "reject",
+    "kill",
+    "request_more_context"
+  ],
+  "audit": {
+    "review_payload_version": "2.1.0",
+    "redaction_notes": [
+      "Claimant identity and full travel itinerary were removed from the reviewer packet."
+    ],
+    "evidence_refs": [
+      "trace:trace-01hzmexample",
+      "policy:claims-payout-review-policy-v2",
+      "artifact:claim-clm_442"
+    ]
+  },
+  "review": {
+    "status": "pending",
+    "reviewer_id": null,
+    "review_started_at": null,
+    "review_submitted_at": null,
+    "review_duration_ms": null,
+    "decision_reason": null,
+    "modifications": null
+  }
+}

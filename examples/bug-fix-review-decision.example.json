@@ -1,0 +1,36 @@
+{
+  "example_version": "2.1.0",
+  "decision_id": "decision-bugfix-001",
+  "handover_id": "handover-bugfix-001",
+  "reviewed_handover_version": "2.1.0",
+  "decision": "modify",
+  "reviewer_id": "eng-reviewer-04",
+  "reviewer_role": "engineering-approver",
+  "decision_source": "ui",
+  "review_started_at": "2026-03-26T09:15:10Z",
+  "review_submitted_at": "2026-03-26T09:18:42Z",
+  "review_duration_ms": 212000,
+  "decision_reason": "Proceed with the minimal backend fix and regression test, but do not change frontend behavior in the same patch. Limit the execution plan to partition-based bug isolation and stack-aware regression coverage, and open a follow-up ticket for the upstream shipping profile issue.",
+  "modifications": {
+    "updated_action": "apply_minimal_backend_patch",
+    "changed_fields": [
+      "target_files",
+      "requested_skills",
+      "follow_up_work"
+    ],
+    "replacement_args": {
+      "target_files": [
+        "src/checkout/CheckoutService.ts",
+        "tests/checkout/CheckoutService.test.ts"
+      ],
+      "requested_skills": [
+        "equivalence-partitioning",
+        "stack-aware-unit-testing-skill"
+      ],
+      "follow_up_work": [
+        "Create issue for guest profile population bug"
+      ]
+    },
+    "original_action_blocked": true
+  }
+}

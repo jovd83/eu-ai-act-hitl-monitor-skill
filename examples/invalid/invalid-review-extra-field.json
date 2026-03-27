@@ -1,0 +1,16 @@
+{
+  "example_version": "2.1.0",
+  "decision_id": "decision-invalid-004",
+  "handover_id": "handover-invalid-004",
+  "reviewed_handover_version": "2.1.0",
+  "decision": "approve",
+  "reviewer_id": "reviewer-2",
+  "reviewer_role": "engineering-approver",
+  "decision_source": "ui",
+  "review_started_at": "2026-03-26T18:20:00Z",
+  "review_submitted_at": "2026-03-26T18:21:30Z",
+  "review_duration_ms": 90000,
+  "decision_reason": "Looks safe to proceed.",
+  "modifications": null,
+  "approval_token": "unexpected-field"
+}

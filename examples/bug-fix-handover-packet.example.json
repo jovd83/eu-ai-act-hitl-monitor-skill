@@ -1,0 +1,120 @@
+{
+  "example_version": "2.1.0",
+  "handover_id": "handover-bugfix-001",
+  "created_at": "2026-03-26T09:14:00Z",
+  "trace_id": "trace-bugfix-001",
+  "run_id": "run-bugfix-checkout-1042",
+  "agent": {
+    "name": "software-maintainer-agent",
+    "version": "3.3.0",
+    "policy_version": "2026-03-26"
+  },
+  "policy": {
+    "policy_id": "software-engineering-review-policy-v2",
+    "policy_version": "2026-03-27",
+    "policy_reference": "examples/interception-policy.example.json",
+    "review_required": true
+  },
+  "trigger": {
+    "type": "low_confidence",
+    "matched_rules": [
+      "bug-fix-below-confidence-threshold"
+    ],
+    "confidence": 0.82,
+    "risk_level": "high"
+  },
+  "pending_action": {
+    "summary": "Patch the checkout backend to guard against a null shipping address during guest checkout",
+    "tool_name": "modify_application_code",
+    "tool_args_redacted": {
+      "target_files": [
+        "src/checkout/CheckoutService.ts",
+        "src/api/controllers/CheckoutController.ts",
+        "tests/checkout/CheckoutService.test.ts"
+      ],
+      "change_type": "bug_fix",
+      "requested_skills": [
+        "technique-selector",
+        "equivalence-partitioning",
+        "stack-aware-unit-testing-skill"
+      ],
+      "execution_plan": [
+        "choose the narrowest test-design technique for the observed failure",
+        "derive a failing guest-checkout partition and lock it in with a regression test",
+        "apply a minimal backend guard-clause patch"
+      ]
+    },
+    "side_effects": [
+      "changes production checkout logic",
+      "changes API validation behavior",
+      "adds regression test coverage",
+      "constrains the automated plan to a narrow backend patch"
+    ],
+    "affected_resources": [
+      "checkout service",
+      "checkout controller",
+      "checkout test suite"
+    ]
+  },
+  "explanation": {
+    "goal": "Prevent checkout failures caused by missing shipping profile data during guest checkout",
+    "why_now": "The agent reproduced the issue in staging and identified a likely null dereference in the order finalization path",
+    "evidence_summary": [
+      "Application logs show repeated null-reference failures in CheckoutService.finalizeOrder",
+      "Failures occur only for guest checkout sessions missing shippingAddress",
+      "Equivalence-partition analysis indicates registered-user checkout and guest checkout with complete shipping data are unaffected"
+    ],
+    "reasoning_summary": "The agent wants to use technique selection to avoid over-scoping the fix, lock the failing partition into a regression test, and then apply a guard-clause patch.",
+    "uncertainty_summary": "Confidence remains below the auto-apply threshold because upstream profile population may also contribute to the failure.",
+    "known_risks": [
+      "The patch may address the symptom without resolving the upstream data issue",
+      "The new validation path may reject valid requests if the condition is too broad",
+      "Frontend clients may need to handle the new validation response"
+    ]
+  },
+  "review_guidance": {
+    "questions": [
+      "Should the automated work stay limited to the isolated guest-checkout partition?",
+      "Should the controller be changed in the same patch or kept out of scope?"
+    ],
+    "recommended_actions": [
+      "Approve if a minimal backend-only patch with targeted regression coverage is acceptable",
+      "Modify if the touched files or the skill stack should be narrowed further",
+      "Reject or kill if the diagnosis is too weak for an automated production patch"
+    ]
+  },
+  "review_requirements": {
+    "required_reviewer_role": "engineering-approver",
+    "decision_deadline_at": "2026-03-26T11:00:00Z",
+    "fallback_on_timeout": "escalate",
+    "escalation_contact": "eng-governance@example.com",
+    "allow_reassignment": true
+  },
+  "human_options": [
+    "approve",
+    "modify",
+    "reject",
+    "kill",
+    "request_more_context"
+  ],
+  "audit": {
+    "review_payload_version": "2.1.0",
+    "redaction_notes": [
+      "Raw customer checkout payloads were omitted from the handover and replaced with a summarized failing input class."
+    ],
+    "evidence_refs": [
+      "trace:trace-bugfix-001",
+      "policy:software-engineering-review-policy-v2",
+      "artifact:checkout-null-reference-incident"
+    ]
+  },
+  "review": {
+    "status": "pending",
+    "reviewer_id": null,
+    "review_started_at": null,
+    "review_submitted_at": null,
+    "review_duration_ms": null,
+    "decision_reason": null,
+    "modifications": null
+  }
+}

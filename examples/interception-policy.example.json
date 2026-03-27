@@ -1,0 +1,249 @@
+{
+  "example_version": "2.1.0",
+  "policy_id": "software-engineering-review-policy-v2",
+  "policy_version": "2026-03-27",
+  "description": "Interception policy for AI-assisted software engineering work with mandatory human review for risky code changes, data exposure changes, and low-confidence production fixes.",
+  "ownership": {
+    "owner": "engineering-governance",
+    "escalation_contact": "eng-governance@example.com"
+  },
+  "default_action": "allow",
+  "global_thresholds": {
+    "auto_apply_min_confidence": 0.85,
+    "high_risk_min_confidence": 0.92,
+    "max_consecutive_failed_attempts": 3
+  },
+  "review_defaults": {
+    "required_reviewer_role": "engineering-approver",
+    "max_review_wait_minutes": 120,
+    "fallback_on_timeout": "escalate"
+  },
+  "rules": [
+    {
+      "rule_id": "bug-fix-below-confidence-threshold",
+      "trigger_type": "low_confidence",
+      "conditions": {
+        "task_category": "bug_fix",
+        "confidence_below": 0.85
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "Low-confidence production bug fixes can misdiagnose the failure and create regressions in critical workflows.",
+      "required_evidence": [
+        "reproduction steps or logs",
+        "root-cause summary",
+        "planned regression coverage"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "engineering-approver",
+      "max_review_wait_minutes": 90,
+      "fallback_on_timeout": "escalate"
+    },
+    {
+      "rule_id": "new-feature-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "new_feature",
+        "writes_application_code": true
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "New features expand the shipped behavior surface and should be approved with explicit product and release intent.",
+      "required_evidence": [
+        "feature summary",
+        "scope boundaries",
+        "test plan"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "product-approver",
+      "max_review_wait_minutes": 240,
+      "fallback_on_timeout": "keep_paused"
+    },
+    {
+      "rule_id": "data-export-feature-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "feature_capability": "data_export"
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "Data export capabilities can change privacy, security, and data-minimization boundaries in one release.",
+      "required_evidence": [
+        "proposed export fields",
+        "authorization scope",
+        "audit-log design"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "product-security-approver",
+      "max_review_wait_minutes": 240,
+      "fallback_on_timeout": "keep_paused"
+    },
+    {
+      "rule_id": "repeat-failure-loop",
+      "trigger_type": "loop",
+      "conditions": {
+        "consecutive_failed_attempts_at_least": 3
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "medium",
+      "rationale": "Repeated failed attempts indicate the agent may be stuck or operating on a bad assumption and should not continue blindly.",
+      "required_evidence": [
+        "attempt history",
+        "latest failure summary"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ]
+    },
+    {
+      "rule_id": "risky-refactor-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "refactor",
+        "cross_module_changes": true
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "Cross-module refactors can silently change behavior across multiple workflows and should be reviewed with dependency context.",
+      "required_evidence": [
+        "affected modules",
+        "characterization-test plan",
+        "rollout strategy"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "engineering-approver",
+      "max_review_wait_minutes": 180,
+      "fallback_on_timeout": "escalate"
+    },
+    {
+      "rule_id": "dependency-upgrade-security-impact",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "dependency_upgrade",
+        "changes_security_or_runtime_surface": true
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "high",
+      "rationale": "Security-sensitive upgrades can be necessary and risky at the same time, especially when middleware defaults change.",
+      "required_evidence": [
+        "upgrade target version",
+        "breaking-change summary",
+        "affected auth or runtime paths"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "security-approver",
+      "max_review_wait_minutes": 180,
+      "fallback_on_timeout": "keep_paused"
+    },
+    {
+      "rule_id": "database-migration-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "database_migration",
+        "schema_change": true
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "critical",
+      "rationale": "Database migrations can permanently alter production data and require explicit approval of rollout and rollback controls.",
+      "required_evidence": [
+        "migration plan",
+        "backfill strategy",
+        "rollback plan"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "database-change-approver",
+      "max_review_wait_minutes": 60,
+      "fallback_on_timeout": "safe_halt"
+    },
+    {
+      "rule_id": "payment-logic-change-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "payment_logic_change"
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "critical",
+      "rationale": "Payment decision logic has direct financial and customer-impacting consequences and should not be auto-applied.",
+      "required_evidence": [
+        "decision-table or rule summary",
+        "affected payment states",
+        "test coverage plan"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "payments-approver",
+      "max_review_wait_minutes": 60,
+      "fallback_on_timeout": "safe_halt"
+    },
+    {
+      "rule_id": "auth-permissions-change-requires-review",
+      "trigger_type": "sensitive_action",
+      "conditions": {
+        "task_category": "auth_permissions_change"
+      },
+      "decision": "pause_for_human_review",
+      "risk_level": "critical",
+      "rationale": "Authorization boundary changes can create privilege-escalation risk and should be reviewed as explicit policy changes.",
+      "required_evidence": [
+        "permission matrix",
+        "affected roles and endpoints",
+        "regression coverage plan"
+      ],
+      "human_options": [
+        "approve",
+        "modify",
+        "reject",
+        "kill",
+        "request_more_context"
+      ],
+      "required_reviewer_role": "security-approver",
+      "max_review_wait_minutes": 60,
+      "fallback_on_timeout": "safe_halt"
+    }
+  ]
+}

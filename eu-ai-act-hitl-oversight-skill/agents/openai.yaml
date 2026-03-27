@@ -1,0 +1,4 @@
+interface:
+  display_name: "EU AI Act HITL Oversight Skill"
+  short_description: "Human oversight, review contracts, and audit design for high-risk agent workflows"
+  default_prompt: "Use $eu-ai-act-hitl-oversight-skill to design or review the interception policy, reviewer handover, review-decision contract, timeout behavior, and audit flow for this agent system."

@@ -1,0 +1,26 @@
+{
+  "example_version": "2.1.0",
+  "decision_id": "decision-invalid-003",
+  "handover_id": "handover-invalid-003",
+  "reviewed_handover_version": "2.1.0",
+  "decision": "modify",
+  "reviewer_id": "reviewer-1",
+  "reviewer_role": "engineering-approver",
+  "decision_source": "ui",
+  "review_started_at": "not-a-timestamp",
+  "review_submitted_at": "2026-03-26T18:15:00Z",
+  "review_duration_ms": 120000,
+  "decision_reason": "Proceed with restrictions.",
+  "modifications": {
+    "updated_action": "apply_restricted_change",
+    "changed_fields": [
+      "target_files"
+    ],
+    "replacement_args": {
+      "target_files": [
+        "src/app/service.ts"
+      ]
+    },
+    "original_action_blocked": true
+  }
+}

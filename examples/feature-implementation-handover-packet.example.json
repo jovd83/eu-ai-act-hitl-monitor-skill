@@ -1,0 +1,128 @@
+{
+  "example_version": "2.1.0",
+  "handover_id": "handover-feature-001",
+  "created_at": "2026-03-26T10:02:00Z",
+  "trace_id": "trace-feature-001",
+  "run_id": "run-feature-export-2044",
+  "agent": {
+    "name": "product-implementation-agent",
+    "version": "3.3.0",
+    "policy_version": "2026-03-26"
+  },
+  "policy": {
+    "policy_id": "software-engineering-review-policy-v2",
+    "policy_version": "2026-03-27",
+    "policy_reference": "examples/interception-policy.example.json",
+    "review_required": true
+  },
+  "trigger": {
+    "type": "sensitive_action",
+    "matched_rules": [
+      "new-feature-requires-review",
+      "data-export-feature-requires-review"
+    ],
+    "confidence": 0.94,
+    "risk_level": "high"
+  },
+  "pending_action": {
+    "summary": "Implement an Export to CSV feature for the admin user-management dashboard",
+    "tool_name": "modify_application_code",
+    "tool_args_redacted": {
+      "target_files": [
+        "src/admin/api/UserExportController.ts",
+        "src/admin/services/UserExportService.ts",
+        "src/admin/ui/UserManagementPage.tsx",
+        "tests/admin/UserExportService.test.ts"
+      ],
+      "change_type": "new_feature",
+      "requested_skills": [
+        "new-feature-sdlc-skill",
+        "acceptance-criteria-designer",
+        "frontend-design",
+        "openapi-spec-generation",
+        "stack-aware-unit-testing-skill"
+      ],
+      "execution_plan": [
+        "confirm reviewable acceptance criteria and column-level scope",
+        "generate the secured export endpoint contract",
+        "implement the UI trigger and backend export path behind the existing admin permissions",
+        "add audit logging and automated tests before release"
+      ]
+    },
+    "side_effects": [
+      "adds a new export endpoint",
+      "adds a new admin dashboard action",
+      "introduces a new data export path",
+      "adds audit logging behavior",
+      "introduces new specification and test artifacts before merge"
+    ],
+    "affected_resources": [
+      "admin export controller",
+      "admin export service",
+      "admin dashboard UI",
+      "admin test suite"
+    ]
+  },
+  "explanation": {
+    "goal": "Allow authorized admin users to export filtered user-management results as CSV",
+    "why_now": "The requested feature has been scoped and the existing admin permission model can be reused",
+    "evidence_summary": [
+      "Admins can already filter and view the target data in the dashboard",
+      "No current export workflow exists",
+      "Draft acceptance criteria require role-restricted access, audit logging, and field minimization",
+      "The existing authorization model can restrict export access to admins"
+    ],
+    "reasoning_summary": "The agent proposes a structured feature-delivery flow: define acceptance criteria, generate an API contract, implement the frontend export trigger and backend endpoint, and add authorization and audit-log tests.",
+    "uncertainty_summary": "The implementation plan is technically coherent, but the approved CSV field set and release controls still need product and privacy confirmation.",
+    "known_risks": [
+      "The export may expose personal or sensitive business data",
+      "Large export generation may degrade performance without pagination or limits",
+      "Field selection may require product or privacy review"
+    ]
+  },
+  "review_guidance": {
+    "questions": [
+      "Is the requested export scope approved from a product and privacy perspective?",
+      "Should the feature ship behind a feature flag and with a reviewed API contract diff?"
+    ],
+    "recommended_actions": [
+      "Approve if the feature scope, data exposure, and skill stack are acceptable",
+      "Modify if the export fields, release controls, or required artifacts should be constrained",
+      "Reject or kill if the feature should not proceed as proposed"
+    ]
+  },
+  "review_requirements": {
+    "required_reviewer_role": "product-security-approver",
+    "decision_deadline_at": "2026-03-26T15:00:00Z",
+    "fallback_on_timeout": "keep_paused",
+    "escalation_contact": "product-governance@example.com",
+    "allow_reassignment": true
+  },
+  "human_options": [
+    "approve",
+    "modify",
+    "reject",
+    "kill",
+    "request_more_context"
+  ],
+  "audit": {
+    "review_payload_version": "2.1.0",
+    "redaction_notes": [
+      "The draft export field list excludes live customer data values and keeps only field names and data classes."
+    ],
+    "evidence_refs": [
+      "trace:trace-feature-001",
+      "policy:software-engineering-review-policy-v2",
+      "artifact:admin-csv-export-scope"
+    ]
+  },
+  "review": {
+    "status": "pending",
+    "reviewer_id": null,
+    "review_started_at": null,
+    "review_submitted_at": null,
+    "review_duration_ms": null,
+    "decision_reason": null,
+    "modifications": null
+  }
+}

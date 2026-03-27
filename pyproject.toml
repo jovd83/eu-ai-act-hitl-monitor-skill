@@ -1,0 +1,24 @@
+[project]
+name = "eu-ai-act-hitl-oversight-skill"
+version = "1.1.0"
+description = "Validation and reference artifacts for the EU AI Act HITL Oversight skill."
+authors = [{ name = "jovd83" }]
+readme = "README.md"
+keywords = ["agent-skills", "eu-ai-act", "human-in-the-loop", "oversight", "auditability"]
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.25,<5",
+  "pydantic>=2.11,<3",
+  "PyYAML>=6.0.2,<7"
+]
+
+[project.urls]
+Documentation = "docs/contracts.md"
+Changelog = "CHANGELOG.md"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = []

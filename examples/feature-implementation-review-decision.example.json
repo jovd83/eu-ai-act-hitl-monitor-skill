@@ -1,0 +1,45 @@
+{
+  "example_version": "2.1.0",
+  "decision_id": "decision-feature-001",
+  "handover_id": "handover-feature-001",
+  "reviewed_handover_version": "2.1.0",
+  "decision": "modify",
+  "reviewer_id": "product-reviewer-11",
+  "reviewer_role": "product-security-approver",
+  "decision_source": "ui",
+  "review_started_at": "2026-03-26T10:04:20Z",
+  "review_submitted_at": "2026-03-26T10:09:50Z",
+  "review_duration_ms": 330000,
+  "decision_reason": "Proceed with the feature, but ship it behind a feature flag, exclude email address from the initial CSV export until privacy review is complete, and require acceptance criteria plus an API contract diff before implementation is merged.",
+  "modifications": {
+    "updated_action": "implement_feature_with_restrictions",
+    "changed_fields": [
+      "requested_skills",
+      "export_columns",
+      "release_controls",
+      "required_artifacts_before_merge"
+    ],
+    "replacement_args": {
+      "requested_skills": [
+        "new-feature-sdlc-skill",
+        "acceptance-criteria-designer",
+        "frontend-design",
+        "openapi-spec-generation",
+        "stack-aware-unit-testing-skill"
+      ],
+      "export_columns": [
+        "account_status",
+        "role",
+        "creation_date"
+      ],
+      "release_controls": {
+        "feature_flag": "admin_csv_export"
+      },
+      "required_artifacts_before_merge": [
+        "approved acceptance criteria",
+        "reviewed OpenAPI diff"
+      ]
+    },
+    "original_action_blocked": true
+  }
+}

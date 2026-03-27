@@ -1,0 +1,24 @@
+{
+  "name": "eu-ai-act-hitl-oversight-skill",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Reference contracts and validation artifacts for the EU AI Act HITL Oversight skill.",
+  "author": "jovd83",
+  "keywords": [
+    "agent-skills",
+    "eu-ai-act",
+    "human-in-the-loop",
+    "oversight",
+    "auditability"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "validate": "python ./scripts/validate_repo.py"
+  },
+  "dependencies": {
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/interception-policy.schema.json",
+  "x-version": "2.1.0",
+  "title": "EU AI Act HITL Interception Policy",
+  "description": "Structured policy contract for deciding when an agent run must pause for human review.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policy_id",
+    "policy_version",
+    "description",
+    "default_action",
+    "rules"
+  ],
+  "properties": {
+    "example_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner"
+      ],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "escalation_contact": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "default_action": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "pause_for_human_review",
+        "deny"
+      ]
+    },
+    "global_thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "auto_apply_min_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "high_risk_min_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_consecutive_failed_attempts": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "review_defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_reviewer_role",
+        "max_review_wait_minutes",
+        "fallback_on_timeout"
+      ],
+      "properties": {
+        "required_reviewer_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_review_wait_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fallback_on_timeout": {
+          "type": "string",
+          "enum": [
+            "keep_paused",
+            "deny",
+            "escalate",
+            "safe_halt"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule_id",
+          "trigger_type",
+          "conditions",
+          "decision",
+          "risk_level",
+          "rationale",
+          "required_evidence"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "trigger_type": {
+            "type": "string",
+            "enum": [
+              "low_confidence",
+              "sensitive_action",
+              "anomaly",
+              "loop",
+              "policy_violation"
+            ]
+          },
+          "conditions": {
+            "type": "object",
+            "minProperties": 1
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "allow",
+              "pause_for_human_review",
+              "deny"
+            ]
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "human_options": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 5,
+            "items": {
+              "type": "string",
+              "enum": [
+                "approve",
+                "modify",
+                "reject",
+                "kill",
+                "request_more_context"
+              ]
+            }
+          },
+          "required_reviewer_role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "max_review_wait_minutes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "fallback_on_timeout": {
+            "type": "string",
+            "enum": [
+              "keep_paused",
+              "deny",
+              "escalate",
+              "safe_halt"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "decision": {
+                  "const": "pause_for_human_review"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "human_options"
+              ],
+              "properties": {
+                "human_options": {
+                  "allOf": [
+                    {
+                      "contains": {
+                        "const": "approve"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "const": "modify"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "const": "reject"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "const": "kill"
+                      }
+                    },
+                    {
+                      "contains": {
+                        "const": "request_more_context"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "else": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "human_options"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "required_reviewer_role"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "max_review_wait_minutes"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "fallback_on_timeout"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

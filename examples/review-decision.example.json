@@ -1,0 +1,27 @@
+{
+  "example_version": "2.1.0",
+  "decision_id": "decision-7d3a4f-001",
+  "handover_id": "handover-7d3a4f",
+  "reviewed_handover_version": "2.1.0",
+  "decision": "modify",
+  "reviewer_id": "ops-reviewer-17",
+  "reviewer_role": "claims-approver",
+  "decision_source": "ui",
+  "review_started_at": "2026-03-25T19:01:00Z",
+  "review_submitted_at": "2026-03-25T19:03:12Z",
+  "review_duration_ms": 132000,
+  "decision_reason": "Evidence supports reimbursement, but payout should be manually capped until the airline timestamp discrepancy is resolved.",
+  "modifications": {
+    "updated_action": "set_status_manual_review",
+    "changed_fields": [
+      "new_status",
+      "payout_amount"
+    ],
+    "replacement_args": {
+      "claim_id": "clm_442",
+      "new_status": "manual_review",
+      "payout_amount": 0
+    },
+    "original_action_blocked": true
+  }
+}
