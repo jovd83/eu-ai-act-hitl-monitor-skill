@@ -1,5 +1,13 @@
 # EU AI Act HITL Oversight Skill
 
+[![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Compliant-purple?style=flat-square)](https://artificialintelligenceact.eu/)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-HITL%20Oversight-orange?style=flat-square)](./)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jovd83)
+
 Enterprise-grade Agent Skill for designing, reviewing, and retrofitting human oversight around higher-risk agent actions.
 
 This repository helps turn risky agent behavior into a reviewable operating model with clear pause triggers, reviewer handovers, decision contracts, timeout handling, and audit evidence. It is designed for AI platform teams, product architects, security-minded maintainers, and engineers who need stronger control boundaries than "show a confidence score and ask for approval."

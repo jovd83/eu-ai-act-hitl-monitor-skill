@@ -251,6 +251,16 @@ Promotion rules:
 - Do not leave timeout or stale-review behavior undefined when the workflow can pause across time.
 - Do not let reviewer identity or reviewer role disappear from the decision trail.
 
+## Common Gotchas
+
+Avoid these frequent implementation traps:
+
+- **Automation Bias**: Reviewers often default to clicking "Approve" without reading the handover. Combat this by requiring a "Modifier" or asking a specific question in the `handover_packet`.
+- **The Stale State Trap**: A review might happen minutes or hours after the pause. Ensure the system checks if the original conditions (e.g., price, inventory, or security context) are still valid before resuming.
+- **Context Gap**: If the handover is too technical, the reviewer can't exercise meaningful oversight. Always pair machine arguments with a human-readable `evidence_summary`.
+- **Implicit Approvals**: Never treat a "Timeout" as an implicit "Approve" in high-risk scenarios. Timeouts should usually trigger a `kill` or `escalate` path to remain compliant.
+- **Data Leakage in Handovers**: Be careful not to include PII or secrets in the handover packet that the reviewer shouldn't see, even if that data was part of the agent's internal reasoning.
+
 ## Failure Handling
 
 If the task is underspecified or the environment is weak, degrade gracefully:
