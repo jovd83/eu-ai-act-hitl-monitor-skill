@@ -1,6 +1,6 @@
 # EU AI Act HITL Oversight Skill
 
-[![Validate Skills](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill/actions/workflows/validate-skills.yml)
+[![Validate Skills](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill/actions/workflows/validate.yml/badge.svg)](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill/actions/workflows/validate.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](https://github.com/jovd83/eu-ai-act-hitl-monitor-skill)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
