@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "validate": "python ./scripts/validate_repo.py"
+    "validate": "python ./scripts/validate_repo.py",
+    "validate:skills": "python ./scripts/validate_agent_skills.py"
   },
   "dependencies": {
     "zod": "^4.1.5"
