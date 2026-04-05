@@ -260,6 +260,10 @@ Avoid these frequent implementation traps:
 - **Context Gap**: If the handover is too technical, the reviewer can't exercise meaningful oversight. Always pair machine arguments with a human-readable `evidence_summary`.
 - **Implicit Approvals**: Never treat a "Timeout" as an implicit "Approve" in high-risk scenarios. Timeouts should usually trigger a `kill` or `escalate` path to remain compliant.
 - **Data Leakage in Handovers**: Be careful not to include PII or secrets in the handover packet that the reviewer shouldn't see, even if that data was part of the agent's internal reasoning.
+- **The "Busy Wait" Anti-pattern**: Avoid blocking the agent process or maintaining a continuous run state while waiting for manual review. Use frameworks with native interrupt support or durable state snapshots to avoid resource exhaustion and allow for cross-day review sessions.
+- **UI-Only Validation**: Never rely solely on front-end buttons for "Approve" or "Modify" actions in high-risk domains. Always validate the final `review-decision` payload against the server-side `handover-packet` to ensure a tamper-proof audit trail of what was actually reviewed.
+- **Trace Context Deletion**: Do not delete the intermediate tool-calls or internal reasoning once a decision is made. Retain enough trace metadata (Article 12 compliance) so that a post-event auditor can reconstruct the exact environment the agent was in when it proposed the action.
+- **The Conversational Approval Trap**: Avoid resuming the agent based on a simple chat message like "looks good" or "ok". Force human feedback into a structured `review-decision` contract to preserve typed rationale and maintain accountability for the override.
 
 ## Failure Handling
 
