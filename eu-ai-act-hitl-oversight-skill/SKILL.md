@@ -5,8 +5,15 @@ compatibility: Designed for Agent Skills compatible coding agents. Repository va
 metadata:
   repository_version: "1.1.0"
   schema_version: "2.1.0"
+  dispatcher-output-artifacts: oversight_design, reviewer_report, governance_contracts
+  dispatcher-risk: medium
+  dispatcher-writes-files: true
+  dispatcher-input-artifacts: agent_workflow, risk_model, oversight_requirements, decision_contracts
+  dispatcher-capabilities: hitl-oversight-design, oversight-review, ai-governance-artifacts
+  dispatcher-stack-tags: governance, oversight, ai-act
+  dispatcher-accepted-intents: design_hitl_oversight, review_hitl_controls, generate_hitl_artifacts
+  dispatcher-category: governance
 ---
-
 # EU AI Act HITL Oversight Skill
 
 Use this skill to turn a loosely governed agent workflow into a reviewable, interruptible, auditable operating model.
