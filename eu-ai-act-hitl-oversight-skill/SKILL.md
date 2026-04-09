@@ -7,7 +7,7 @@ metadata:
   schema_version: "2.1.0"
   dispatcher-output-artifacts: oversight_design, reviewer_report, governance_contracts
   dispatcher-risk: medium
-  dispatcher-writes-files: true
+  dispatcher-writes-files: "true"
   dispatcher-input-artifacts: agent_workflow, risk_model, oversight_requirements, decision_contracts
   dispatcher-capabilities: hitl-oversight-design, oversight-review, ai-governance-artifacts
   dispatcher-stack-tags: governance, oversight, ai-act
