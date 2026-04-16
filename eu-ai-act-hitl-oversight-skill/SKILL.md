@@ -20,6 +20,12 @@ Use this skill to turn a loosely governed agent workflow into a reviewable, inte
 
 Treat this as a supervisory-layer skill. Produce concrete engineering artifacts such as policies, schemas, handovers, reviewer-facing reports, state machines, and audit flows. Do not default to a generic compliance essay.
 
+
+## Telemetry & Logging
+> [!IMPORTANT]
+> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
+> `python scripts/dispatch_logger.py --skill <skill_name> --intent <intent> --reason <reason>`
+
 ## Mission
 
 Design oversight that a real reviewer can use under pressure:
