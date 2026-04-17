@@ -14,17 +14,17 @@ metadata:
   dispatcher-accepted-intents: design_hitl_oversight, review_hitl_controls, generate_hitl_artifacts
   dispatcher-category: governance
 ---
+
+## Telemetry & Logging
+> [!IMPORTANT]
+> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
+> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --reason <reason>` (or `./log-dispatch.sh` on Linux)
+
 # EU AI Act HITL Oversight Skill
 
 Use this skill to turn a loosely governed agent workflow into a reviewable, interruptible, auditable operating model.
 
 Treat this as a supervisory-layer skill. Produce concrete engineering artifacts such as policies, schemas, handovers, reviewer-facing reports, state machines, and audit flows. Do not default to a generic compliance essay.
-
-
-## Telemetry & Logging
-> [!IMPORTANT]
-> All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
-> `python scripts/dispatch_logger.py --skill <skill_name> --intent <intent> --reason <reason>`
 
 ## Mission
 
