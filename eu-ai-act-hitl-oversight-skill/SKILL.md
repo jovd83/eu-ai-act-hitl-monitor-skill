@@ -3,11 +3,11 @@ name: eu-ai-act-hitl-oversight-skill
 description: Design, review, and retrofit human-oversight controls for autonomous or semi-autonomous agent systems that need structured pause, review, resume, reject, or halt behavior. Use when Codex needs EU AI Act Article 12 or Article 14 aligned logging, explainable human handovers, typed review-decision contracts, reviewer-facing markdown reports, timeout and escalation rules, or findings-first critiques of unsafe approval flows around sensitive actions, low-confidence decisions, anomalous behavior, repeated loops, or other high-impact decision points.
 compatibility: Designed for Agent Skills compatible coding agents. Repository validation assumes Python 3.11+ and optional Node.js for TypeScript reference typechecking.
 metadata:
-  repository_version: "1.1.0"
-  schema_version: "2.1.0"
+  repository_version: 1.1.0
+  schema_version: 2.1.0
   dispatcher-output-artifacts: oversight_design, reviewer_report, governance_contracts
   dispatcher-risk: medium
-  dispatcher-writes-files: "true"
+  dispatcher-writes-files: 'true'
   dispatcher-input-artifacts: agent_workflow, risk_model, oversight_requirements, decision_contracts
   dispatcher-capabilities: hitl-oversight-design, oversight-review, ai-governance-artifacts
   dispatcher-stack-tags: governance, oversight, ai-act
