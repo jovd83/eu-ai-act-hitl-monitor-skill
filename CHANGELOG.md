@@ -18,3 +18,9 @@
 - strengthened the Python and TypeScript reference implementations
 - improved repository validation with shared helpers and a bundled example-validation runner
 - rewrote the main documentation to make installation, contracts, validation, and operating boundaries easier to understand
+
+## [1.0.1] - 2026-04-30
+
+### Changed
+- Trim `SKILL.md` frontmatter to fit the 1000-character dispatcher limit (description trim, migrate non-dispatcher fields to body).
+

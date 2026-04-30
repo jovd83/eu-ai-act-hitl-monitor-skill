@@ -1,7 +1,6 @@
 ---
 name: eu-ai-act-hitl-oversight-skill
-description: Design, review, and retrofit human-oversight controls for autonomous or semi-autonomous agent systems that need structured pause, review, resume, reject, or halt behavior. Use when Codex needs EU AI Act Article 12 or Article 14 aligned logging, explainable human handovers, typed review-decision contracts, reviewer-facing markdown reports, timeout and escalation rules, or findings-first critiques of unsafe approval flows around sensitive actions, low-confidence decisions, anomalous behavior, repeated loops, or other high-impact decision points.
-compatibility: Designed for Agent Skills compatible coding agents. Repository validation assumes Python 3.11+ and optional Node.js for TypeScript reference typechecking.
+description: Design, review, and retrofit human-oversight controls for autonomous agent systems with pause, review, resume, reject, or halt behavior. Use for EU AI Act Article 12/14 logging, human handovers, typed review-decision contracts, reviewer reports, timeout/escalation rules, or critiques of unsafe approval flows.
 metadata:
   repository_version: 1.1.0
   schema_version: 2.1.0
@@ -13,14 +12,20 @@ metadata:
   dispatcher-stack-tags: governance, oversight, ai-act
   dispatcher-accepted-intents: design_hitl_oversight, review_hitl_controls, generate_hitl_artifacts
   dispatcher-category: governance
+
 ---
 
 ## Telemetry & Logging
 > [!IMPORTANT]
 > All usage of this skill must be logged via the Skill Dispatcher to ensure audit logs and wallboard analytics are accurate:
-> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --reason <reason>` (or `./log-dispatch.sh` on Linux)
+> `./log-dispatch.cmd --skill <skill_name> --intent <intent> --model <model_name> --reason <reason>` (or `./log-dispatch.sh` on Linux)
 
 # EU AI Act HITL Oversight Skill
+
+> **Version:** 1.0.1  
+
+> **Compatibility:** Designed for Agent Skills compatible coding agents. Repository validation assumes Python 3.11+ and optional Node.js for TypeScript reference typechecking.
+
 
 Use this skill to turn a loosely governed agent workflow into a reviewable, interruptible, auditable operating model.
 
